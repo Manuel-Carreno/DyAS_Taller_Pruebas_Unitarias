@@ -14,7 +14,7 @@ Cada defecto debe documentarse claramente para facilitar su análisis y correcci
 - **Resultado esperado**: `INVALID_AGE`
 - **Resultado obtenido**: `VALID`
 - **Causa probable**: Falta de validación de edad negativa en `Registry.registerVoter`.
-- **Estado**: Abierto
+- **Estado**: Resuelto 
 
 ---
 
@@ -25,7 +25,7 @@ Cada defecto debe documentarse claramente para facilitar su análisis y correcci
 - **Resultado esperado**: `DEAD`
 - **Resultado obtenido**: `VALID`
 - **Causa probable**: No se evalúa la condición `alive=false`.
-- **Estado**: Abierto
+- **Estado**: Resuelto 
 
 ---
 
@@ -42,7 +42,18 @@ Cada defecto debe documentarse claramente para facilitar su análisis y correcci
   - Persona 1 → `VALID`
   - Persona 2 → `VALID`
 - **Causa probable**: No hay verificación de `id` previamente registrado.
-- **Estado**: Abierto
+- **Estado**: Resuelto 
+
+---
+
+### Defecto 04
+
+- **Caso de prueba**: Persona con edad mayor a 120
+- **Entrada**: `Person(name="Pedro", id=7, age=150, gender=MALE, alive=true`
+- **Resultado esperado**: `INVALID_AGE`
+- **Resultado obtenido**: `VALID`
+- **Causa probable**:  No se validaba el limite superior de edad
+- **Estado**: Resuelto
 
 ---
 
@@ -53,6 +64,7 @@ Cada defecto debe documentarse claramente para facilitar su análisis y correcci
 | 01 | Edad inválida | `Person(id=101, age=-1, alive=true)` | `INVALID_AGE` | `VALID` | No se valida edad negativa | Abierto |
 | 02 | Persona muerta | `Person(id=102, age=45, alive=false)` | `DEAD` | `VALID` | No se evalúa condición `alive=false` | Abierto |
 | 03 | Registro duplicado | `Person(id=200, age=30, alive=true)` + `Person(id=200, age=25, alive=true)` | 1º → `VALID` 2º → `DUPLICATED` | 1º → `VALID` 2º → `VALID` | No hay verificación de `id` duplicado | Abierto |
+| 04 | Edad > 120 | `age=150, alive=true` | `INVALID_AGE` | `VALID` | No verificaba correctamente la edad| Resuelto |
 
 ---
 
